@@ -1,0 +1,28 @@
+{
+  "name": "employee-tracker",
+  "version": "1.0.0",
+  "description": "employee-tracker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node",
+    "dev": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanFCarr/employee-tracker.git"
+  },
+  "author": "Ryan F. Carr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanFCarr/employee-tracker/issues"
+  },
+  "homepage": "https://github.com/RyanFCarr/employee-tracker#readme",
+  "dependencies": {
+    "inquirer": "^7.1.0",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
