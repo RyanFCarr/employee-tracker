@@ -2,9 +2,9 @@
 module.exports = {
     main: [
         {
-            "type": "list",
-            "name": "name",
-            "message": "What would you like to do?",
+            type: "list",
+            name: "choice",
+            message: "What would you like to do?",
             choices: [ 
                 "View all employees", 
                 "View all employees by Department",
@@ -14,17 +14,14 @@ module.exports = {
                 "Update employee role",
                 "Update employee manager"
             ]
-        },
-        {
-            "type": "input",
-            "name": "email",
-            "message": "What is the Employee's email?",
-            "validate": email => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-        },
-        {
-            "type": "input",
-            "name": "id",
-            "message": "What is the Employee's id?"
-        }  
+        }
     ],
+    remove: [
+        {
+            type: "list",
+            name: "choice",
+            message: " Which employee would you like to remove?",
+            choices: []
+        }
+    ]
 }
