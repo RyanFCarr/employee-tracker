@@ -1,9 +1,19 @@
+
 module.exports = {
-    "employee": [
+    main: [
         {
-            "type": "input",
+            "type": "list",
             "name": "name",
-            "message": "What is the Employee's name?"
+            "message": "What would you like to do?",
+            choices: [ 
+                "View all employees", 
+                "View all employees by Department",
+                "View all employees by Manager",
+                "Add employee",
+                "Remove employee",
+                "Update employee role",
+                "Update employee manager"
+            ]
         },
         {
             "type": "input",
@@ -17,36 +27,4 @@ module.exports = {
             "message": "What is the Employee's id?"
         }  
     ],
-    "manager": [
-        {
-            "type": "input",
-            "name": "officeNumber",
-            "message": "Manager's officeNumber?",
-            "validate": phone => /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(phone)
-        }
-    ],
-    "engineer": [
-        {
-            "type": "input",
-            "name": "gitHub",
-            "message": "Engineer's GitHub name?"
-        },
-        {
-            "type": "confirm",
-            "name": "done",
-            "message": "Would you like to add another Engineer?"
-        }
-    ],
-    "intern": [
-        {
-            "type": "input",
-            "name": "schoolName",
-            "message": "Intern's school name?"
-        },
-        {
-            "type": "confirm",
-            "name": "done",
-            "message": "Would you like to add another Intern?"
-        }
-    ]
 }
