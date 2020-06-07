@@ -48,7 +48,7 @@ async function start() {
             await updateRole();
             break;
         case "Update employee manager":
-            // code block
+            await updateManager();
             break;
     }
 }
@@ -176,6 +176,44 @@ async function updateRole(){
                     start();
                 })
 
+            });
+        });
+    });
+}
+
+async function updateManager(){
+    let sql = `SELECT id, first_name, last_name FROM employee`;
+
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+        const employees = results.map(employee => {
+            return {
+                value: employee.id,
+                name: `${employee.first_name} ${employee.last_name}`,
+                short: `${employee.first_name} ${employee.last_name}`
+            };
+        });
+
+        let updateManager = `SELECT id, concat(first_name, " ", last_name) AS fullName from employee WHERE manager_id is NULL`;
+
+        db.query(updateManager, (err, results) => {
+            if (err) throw err;
+            const managers = results.map(manager => {
+                return {
+                    value: manager.id,
+                    name: manager.fullName,
+                    short: manager.fullName
+                };
+            });
+            const prompt = [...questions.updateEmpManager];
+            prompt[0].choices = employees;
+            prompt[1].choices = managers;
+            inquirer.prompt(prompt).then(answers => {
+                let setManager = `UPDATE employee SET manager_id = ${answers.manager} WHERE id=${answers.emp}`;
+                db.query(setManager, (err, results) => {
+                    console.log('Updated employee\'s Manager!')
+                    start();
+                })
             });
         });
     });
