@@ -1,4 +1,4 @@
-
+const inquirer = require("inquirer");
 module.exports = {
     main: [
         {
@@ -6,13 +6,20 @@ module.exports = {
             name: "choice",
             message: "What would you like to do?",
             choices: [ 
-                "View all employees", 
+                "Add employee",
+                "Add role",
+                "Add department",
+                "View all employees",
+                "View all roles",
+                "View all departments",
+                "Update employee role",
+                new inquirer.Separator(), 
                 "View all employees by Department",
                 "View all employees by Manager",
-                "Add employee",
-                "Remove employee",
-                "Update employee role",
-                "Update employee manager"
+                "Update employee manager",
+                "Delete employee",
+                "Delete role",
+                "Delete department"   
             ]
         }
     ],
@@ -72,6 +79,31 @@ module.exports = {
             name: "employee_role",
             message: "Whats is the employee\'s role?",
             choices: [] 
+        }
+    ],
+    addDepartment: [
+        {
+            type: "input",
+            name: "name",
+            message: "What department would you like to add?"
+        }
+    ],
+    addRole: [
+        {
+            type: "input",
+            name: "title",
+            message: "What role would you like to add?"
+        },
+        {
+            type: "input",
+            name: "salary",
+            message: "What will be the salary of this role?"
+        },
+        {
+            type: "list",
+            name: "department_id",
+            message: "Which department will have this role?",
+            choices: []
         }
     ]
 }

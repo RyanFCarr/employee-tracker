@@ -32,14 +32,20 @@ async function start() {
         case "View all employees":
             await selectAll();
             break;
-        case "View all employees by Department":
-            // code block
+        case "View all departments":
+            viewDepartments()
             break;
-        case "View all employees by Manager":
-            // code block
+        case "View all roles":
+            viewRoles()
             break;
         case "Add employee":
             await addEmployee();
+            break;
+        case "Add department":
+            addDepartment();
+            break;
+        case "Add role":
+            addRole();
             break;
         case "Remove employee":
             await removeEmployee();
@@ -219,3 +225,47 @@ async function updateManager(){
     });
 }
 
+function viewDepartments(){
+    let sql = `SELECT id, name as Department FROM department`;
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+        console.table(results)
+        start();
+    });
+}
+
+function viewRoles(){
+    let sql = `SELECT r.id, r.title as role, r.salary, d.name as department 
+                FROM role as r 
+                inner join department as d
+                ON r.department_id = d.id`;
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+        console.table(results)
+        start();
+    });
+}
+
+function addDepartment(){
+    let sql = `INSERT INTO department SET ?`;
+    inquirer.prompt(questions.addDepartment)
+    .then(answers => db.query(sql, answers, ()=>start()));
+}
+
+function addRole(){
+    db.query(`SELECT id, name from department`, (err, results) => {
+        if (err) throw err;
+        const departments = results.map(department => {
+            return {
+                value: department.id,
+                name: department.name,
+                short: department.name
+            };
+        })
+        const prompt = [...questions.addRole];
+        prompt[2].choices = departments;
+        let sql = `INSERT INTO role SET ?`;
+        inquirer.prompt(prompt)
+        .then(answers => db.query(sql, answers, ()=>start()));
+    });
+}
