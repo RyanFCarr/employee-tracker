@@ -26,8 +26,6 @@ CREATE TABLE employee (
     FOREIGN KEY (manager_id) REFERENCES employee(id)
 );
 
-
-
 INSERT INTO department (name) VALUES ("sales");
 INSERT INTO department (name) VALUES ("Engineering");
 INSERT INTO department (name) VALUES ("Finance");
