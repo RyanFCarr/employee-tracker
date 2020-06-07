@@ -59,5 +59,19 @@ module.exports = {
             message: "Which employee do you want to set as manager for the selected employee?",
             choices: []
         }
+    ],
+    updateEmpRole: [
+        {
+            type: "list",
+            name: "employee",
+            message: "Which employee\'s role would you like to update?",
+            choices: [] 
+        },
+        {
+            type: "list",
+            name: "employee_role",
+            message: "Whats is the employee\'s role?",
+            choices: [] 
+        }
     ]
 }

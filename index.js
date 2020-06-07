@@ -45,7 +45,7 @@ async function start() {
             await removeEmployee();
             break;
         case "Update employee role":
-            // code block
+            await updateRole();
             break;
         case "Update employee manager":
             // code block
@@ -143,3 +143,41 @@ async function addEmployee(){
         });
     }); 
 }
+
+async function updateRole(){
+    let sql = `SELECT id, first_name, last_name FROM employee`;
+
+    db.query(sql, (err, results) => {
+        if (err) throw err;
+        const employees = results.map(employee => {
+            return {
+                value: employee.id,
+                name: `${employee.first_name} ${employee.last_name}`,
+                short: `${employee.first_name} ${employee.last_name}`
+            };
+        })
+
+        db.query(`SELECT id, title from role`, (err, results) => {
+            if (err) throw err;
+            const roles = results.map(role => {
+                return {
+                    value: role.id,
+                    name: role.title,
+                    short: role.title
+                };
+            });
+            const prompt = [...questions.updateEmpRole];
+            prompt[0].choices = employees;
+            prompt[1].choices = roles;
+            inquirer.prompt(prompt).then(answers => {
+                let setRole = `UPDATE employee SET role_id = ${answers.employee_role} WHERE id=${answers.employee}`;
+                db.query(setRole, (err, results) => {
+                    console.log('Employee Role Updated!')
+                    start();
+                })
+
+            });
+        });
+    });
+}
+
