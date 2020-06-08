@@ -47,7 +47,7 @@ async function start() {
         case "Add role":
             addRole();
             break;
-        case "Remove employee":
+        case "Delete employee":
             await removeEmployee();
             break;
         case "Update employee role":
@@ -56,6 +56,9 @@ async function start() {
         case "Update employee manager":
             await updateManager();
             break;
+        default:
+            console.log('option not yet implemnented.');
+            start();
     }
 }
 
@@ -115,7 +118,7 @@ async function removeEmployee() {
     })
 }
 
-async function addEmployee(){
+async function addEmployee() {
     // roles
     db.query(`SELECT id, title from role`, (err, results) => {
         if (err) throw err;
@@ -141,16 +144,16 @@ async function addEmployee(){
                 };
             })
             prompt[3].choices = managers;
-            inquirer.prompt(prompt).then((answers)=>{
+            inquirer.prompt(prompt).then((answers) => {
                 db.query("INSERT INTO employee SET ?", answers, (err, results) => {
                     start();
                 })
             })
         });
-    }); 
+    });
 }
 
-async function updateRole(){
+async function updateRole() {
     let sql = `SELECT id, first_name, last_name FROM employee`;
 
     db.query(sql, (err, results) => {
@@ -187,7 +190,7 @@ async function updateRole(){
     });
 }
 
-async function updateManager(){
+async function updateManager() {
     let sql = `SELECT id, first_name, last_name FROM employee`;
 
     db.query(sql, (err, results) => {
@@ -225,7 +228,7 @@ async function updateManager(){
     });
 }
 
-function viewDepartments(){
+function viewDepartments() {
     let sql = `SELECT id, name as Department FROM department`;
     db.query(sql, (err, results) => {
         if (err) throw err;
@@ -234,7 +237,7 @@ function viewDepartments(){
     });
 }
 
-function viewRoles(){
+function viewRoles() {
     let sql = `SELECT r.id, r.title as role, r.salary, d.name as department 
                 FROM role as r 
                 inner join department as d
@@ -246,13 +249,13 @@ function viewRoles(){
     });
 }
 
-function addDepartment(){
+function addDepartment() {
     let sql = `INSERT INTO department SET ?`;
     inquirer.prompt(questions.addDepartment)
-    .then(answers => db.query(sql, answers, ()=>start()));
+        .then(answers => db.query(sql, answers, () => start()));
 }
 
-function addRole(){
+function addRole() {
     db.query(`SELECT id, name from department`, (err, results) => {
         if (err) throw err;
         const departments = results.map(department => {
@@ -266,6 +269,6 @@ function addRole(){
         prompt[2].choices = departments;
         let sql = `INSERT INTO role SET ?`;
         inquirer.prompt(prompt)
-        .then(answers => db.query(sql, answers, ()=>start()));
+            .then(answers => db.query(sql, answers, () => start()));
     });
 }
