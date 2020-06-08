@@ -1,4 +1,4 @@
-# employee-tracker
+# Employee Tracker
 A  CLI app to view and manage the departments, roles, and employees in a given company.
 
 ## Table of Contents
