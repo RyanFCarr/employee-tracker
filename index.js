@@ -57,8 +57,8 @@ async function start() {
             await updateManager();
             break;
         default:
-            console.log('option not yet implemnented.');
-            start();
+           db.end();
+
     }
 }
 

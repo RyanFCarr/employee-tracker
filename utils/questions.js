@@ -14,12 +14,11 @@ module.exports = {
                 "View all departments",
                 "Update employee role",
                 new inquirer.Separator(), 
-                "View all employees by Department",
-                "View all employees by Manager",
                 "Update employee manager",
                 "Delete employee",
-                "Delete role",
-                "Delete department"   
+                new inquirer.Separator(),
+                "Exit",
+                new inquirer.Separator()
             ]
         }
     ],
